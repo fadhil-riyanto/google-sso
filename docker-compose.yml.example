@@ -1,0 +1,43 @@
+volumes:
+  storage:
+  db_data:
+
+networks:
+  veth_network:
+    driver: bridge
+
+services:
+  google_sso:
+    image: php:8.3.20-bullseye
+    build:
+      context: .
+      dockerfile: dev.backend.Dockerfile
+    environment:
+      - docker=true
+      - DB_HOST=pgsql_db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=<YOUR_DB_PASSWORD>
+      - DB_DATABASE=google_sso_dev
+    ports:
+      - "10302:10302"
+    networks:
+      - veth_network
+    volumes:
+      - .:/app
+      - storage:/app/storage
+    depends_on:
+      - pgsql_db
+
+  pgsql_db:
+    image: postgres:17.5-bullseye
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=<YOUR_DB_PASSWORD>
+      - POSTGRES_DB=google_sso_dev
+    networks:
+      - veth_network
+    volumes:
+      - db_data:/var/lib/postgresql/data
