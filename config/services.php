@@ -34,5 +34,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'google' => [
+        'client_id' => env('G_SSO_CLIENT_ID'),
+        'client_secret' => env('G_SSO_CLIENT_SECRET'),
+        'redirect' => env('G_SSO_REDIRECT_URI'),
+        'name' => env('G_SSO_NAME'),
+    ],
 
 ];

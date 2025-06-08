@@ -6,6 +6,6 @@
     <title>Hello world</title>
 </head>
 <body>
-    this is simple yet OAuth2 with google
+    this is simple yet OAuth2 with google, <a href="/auth/redirect">login please</a>
 </body>
 </html>
